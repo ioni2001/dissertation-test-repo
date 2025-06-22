@@ -10,5 +10,8 @@ namespace dissertation_test_repo.Services
         Task<CarResponseDto?> UpdateCarAsync(int id, CarUpdateDto carDto);
         Task<bool> DeleteCarAsync(int id);
         Task<IEnumerable<CarResponseDto>> GetCarsByMakeAsync(string make);
+        Task<IEnumerable<CarResponseDto>> GetAvailableCarsAsync();
+        Task<CarResponseDto?> MarkAsUnavailableAsync(int id);
+        Task<decimal> GetAveragePriceAsync();
     }
 }

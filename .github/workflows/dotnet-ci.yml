@@ -6,11 +6,11 @@ jobs:
   base_branch_cov:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.base_ref }}
       - name: Set up .NET SDK
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
 
@@ -21,7 +21,7 @@ jobs:
         run: dotnet test --settings tests.runsettings --logger "trx;LogFileName=test_results.trx" --collect:"XPlat Code Coverage"
 
       - name: Upload code coverage for ref branch
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ref-coverage.cobertura.xml
           path: ./TestResults/**/*.cobertura.xml
@@ -30,14 +30,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: base_branch_cov
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up .NET SDK
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
 
       - name: Download code coverage report from base branch
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ref-coverage.cobertura.xml
 

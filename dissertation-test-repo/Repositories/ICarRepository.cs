@@ -10,5 +10,6 @@ namespace dissertation_test_repo.Repositories
         Task<Car?> UpdateAsync(int id, Car car);
         Task<bool> DeleteAsync(int id);
         Task<IEnumerable<Car>> GetByMakeAsync(string make);
+        Task<IEnumerable<Car>> GetAvailableCarsAsync();
     }
 }

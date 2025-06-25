@@ -74,5 +74,11 @@ namespace dissertation_test_repo.Repositories
                 string.Equals(c.Make, make, StringComparison.OrdinalIgnoreCase));
             return Task.FromResult(cars);
         }
+
+        public Task<IEnumerable<Car>> GetAvailableCarsAsync()
+        {
+            var availableCars = _cars.Values.Where(c => c.IsAvailable);
+            return Task.FromResult(availableCars);
+        }
     }
 }

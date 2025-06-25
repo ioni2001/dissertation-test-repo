@@ -32,6 +32,11 @@ jobs:
             echo "Coverage file not found!"
             exit 1
           fi
+
+      - name: Debug - List all generated files
+        run: |
+          echo "All files in current directory:"
+          find . -type f -name "*coverage*" -o -name "*.lcov" -o -name "*.info"    
        
       - name: Upload code coverage for ref branch
         uses: actions/upload-artifact@v4

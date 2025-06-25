@@ -34,7 +34,7 @@ jobs:
           echo "file=$(find . -type f -name 'coverage.info' -print -quit)" >> $GITHUB_OUTPUT
 
       - name: Upload code coverage for ref branch
-        if: steps.find_cov_ref.outputs.file
+        if: steps.find_cov_ref.outputs.file != ''
         uses: actions/upload-artifact@v4
         with:
           name: ref-coverage.info
@@ -76,6 +76,7 @@ jobs:
           echo "file=$(find . -type f -name 'coverage.info' -print -quit)" >> $GITHUB_OUTPUT
 
       - name: Generate Barecheck Code Coverage report
+        if: steps.find_cov.outputs.file != ''
         uses: barecheck/code-coverage-action@v1
         with:
           barecheck-github-app-token: ${{ secrets.BARECHECK_GITHUB_APP_TOKEN }}

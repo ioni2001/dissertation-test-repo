@@ -204,7 +204,7 @@ namespace dissertation_test_repo.Controllers
             try
             {
                 var averagePrice = await _carService.GetAveragePriceAsync();
-                return Ok(new { AveragePrice = averagePrice });
+                return Ok(averagePrice);
             }
             catch (Exception ex)
             {

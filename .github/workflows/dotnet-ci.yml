@@ -26,14 +26,15 @@ jobs:
           dotnet test --configuration Release \
             /p:CollectCoverage=true \
             /p:CoverletOutputFormat=lcov \
-            /p:CoverletOutput=TestResults/coverage/
+            /p:CoverletOutput=coverage/
 
       - name: Locate LCOV file
         id: find_cov_ref
         run: |
-          echo "file=$(find TestResults -type f -name 'coverage.info' -print -quit)" >> $GITHUB_OUTPUT
+          echo "file=$(find . -type f -name 'coverage.info' -print -quit)" >> $GITHUB_OUTPUT
 
       - name: Upload code coverage for ref branch
+        if: steps.find_cov_ref.outputs.file
         uses: actions/upload-artifact@v4
         with:
           name: ref-coverage.info
@@ -67,15 +68,14 @@ jobs:
           dotnet test --configuration Release \
             /p:CollectCoverage=true \
             /p:CoverletOutputFormat=lcov \
-            /p:CoverletOutput=TestResults/coverage/
+            /p:CoverletOutput=coverage/
 
       - name: Locate LCOV file
         id: find_cov
         run: |
-          echo "file=$(find TestResults -type f -name 'coverage.info' -print -quit)" >> $GITHUB_OUTPUT
+          echo "file=$(find . -type f -name 'coverage.info' -print -quit)" >> $GITHUB_OUTPUT
 
       - name: Generate Barecheck Code Coverage report
-        id: code-coverage
         uses: barecheck/code-coverage-action@v1
         with:
           barecheck-github-app-token: ${{ secrets.BARECHECK_GITHUB_APP_TOKEN }}

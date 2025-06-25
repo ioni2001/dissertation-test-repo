@@ -199,7 +199,7 @@ namespace dissertation_test_repo.Controllers
         /// Get average price of all cars
         /// </summary>
         [HttpGet("average-price")]
-        public async Task<ActionResult<decimal>> GetAveragePrice()
+        public async Task<ActionResult<double>> GetAveragePrice()
         {
             try
             {

@@ -48,12 +48,17 @@ jobs:
       - name: Run tests with coverage
         run: dotnet test --configuration Release --logger "trx;LogFileName=test_results.trx" --collect:"XPlat Code Coverage;Format=cobertura"
 
+      - name: Locate coverage file
+        id: find_cov
+        run: |
+          echo "file=$(find . -type f -name 'coverage.cobertura.xml' -print -quit)" >> $GITHUB_OUTPUT
+
       - name: Generate Code Coverage report
         id: code-coverage
         uses: barecheck/code-coverage-action@v1
         with:
           barecheck-github-app-token: ${{ secrets.BARECHECK_GITHUB_APP_TOKEN }}
-          lcov-file: "**/TestResults/**/coverage.cobertura.xml"
+          lcov-file: ${{ steps.find_cov.outputs.file }}
           base-lcov-file: "./ref-coverage.cobertura.xml"
           minimum-ratio: 0
           send-summary-comment: true

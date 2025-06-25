@@ -18,7 +18,7 @@ jobs:
         run: dotnet restore
 
       - name: Run tests with coverage
-        run: dotnet test --settings tests.runsettings --logger "trx;LogFileName=test_results.trx" --collect:"XPlat Code Coverage"
+        run: dotnet test --configuration Release --logger "trx;LogFileName=test_results.trx" --collect:"XPlat Code Coverage;Format=cobertura"
 
       - name: Upload code coverage for ref branch
         uses: actions/upload-artifact@v4

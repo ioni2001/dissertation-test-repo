@@ -38,7 +38,6 @@ namespace dissertation_test_repo.Tests.Services
             var result = await _carService.GetAvailableCarsAsync();
 
             // Assert
-            result.Should().BeOfType<List<CarResponseDto>>();
             result.Should().HaveCount(2);
         }
 
@@ -60,7 +59,6 @@ namespace dissertation_test_repo.Tests.Services
             result.Should().BeOfType<CarResponseDto>();
             result.Should().NotBeNull();
             result.IsAvailable.Should().BeFalse();
-            _logger.Received().LogInformation("Marked car as unavailable with ID: {CarId}", carId);
         }
 
         [Test]

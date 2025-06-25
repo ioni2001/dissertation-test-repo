@@ -12,6 +12,6 @@ namespace dissertation_test_repo.Services
         Task<IEnumerable<CarResponseDto>> GetCarsByMakeAsync(string make);
         Task<IEnumerable<CarResponseDto>> GetAvailableCarsAsync();
         Task<CarResponseDto?> MarkAsUnavailableAsync(int id);
-        Task<decimal> GetAveragePriceAsync();
+        Task<double> GetAveragePriceAsync();
     }
 }

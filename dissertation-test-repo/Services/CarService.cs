@@ -138,10 +138,10 @@ namespace dissertation_test_repo.Services
             return updatedCar != null ? MapToResponseDto(updatedCar) : null;
         }
 
-        public async Task<decimal> GetAveragePriceAsync()
+        public async Task<double> GetAveragePriceAsync()
         {
             var cars = await _carRepository.GetAllAsync();
-            return cars.Any() ? cars.Average(c => c.Price) : 0;
+            return cars.Any() ? cars.Average(c => (double)c.Price) : 0;
         }
 
         private static CarResponseDto MapToResponseDto(Car car)

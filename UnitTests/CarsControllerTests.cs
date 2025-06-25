@@ -121,7 +121,7 @@ namespace dissertation_test_repo.Tests.Controllers
         public async Task GetAveragePrice_ReturnsOkResult_WithAveragePrice()
         {
             // Arrange
-            decimal averagePrice = 15000.50m;
+            decimal averagePrice = 15000;
             _carService.GetAveragePriceAsync().Returns(averagePrice);
 
             // Act

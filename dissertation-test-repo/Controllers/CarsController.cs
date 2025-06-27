@@ -154,5 +154,63 @@ namespace dissertation_test_repo.Controllers
                 return StatusCode(500, "An error occurred while processing your request");
             }
         }
+
+        /// <summary>
+        /// Get available cars only
+        /// </summary>
+        [HttpGet("available")]
+        public async Task<ActionResult<IEnumerable<CarResponseDto>>> GetAvailableCars()
+        {
+            try
+            {
+                var cars = await _carService.GetAvailableCarsAsync();
+                return Ok(cars);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while getting available cars");
+                return StatusCode(500, "An error occurred while processing your request");
+            }
+        }
+
+        /// <summary>
+        /// Mark a car as unavailable
+        /// </summary>
+        [HttpPatch("{id}/unavailable")]
+        public async Task<ActionResult<CarResponseDto>> MarkAsUnavailable(int id)
+        {
+            try
+            {
+                var car = await _carService.MarkAsUnavailableAsync(id);
+                if (car == null)
+                {
+                    return NotFound($"Car with ID {id} not found");
+                }
+                return Ok(car);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while marking car as unavailable with ID: {CarId}", id);
+                return StatusCode(500, "An error occurred while processing your request");
+            }
+        }
+
+        /// <summary>
+        /// Get average price of all cars
+        /// </summary>
+        [HttpGet("average-price")]
+        public async Task<ActionResult<double>> GetAveragePrice()
+        {
+            try
+            {
+                var averagePrice = await _carService.GetAveragePriceAsync();
+                return Ok(averagePrice);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while calculating average price");
+                return StatusCode(500, "An error occurred while processing your request");
+            }
+        }
     }
 }

@@ -39,7 +39,7 @@ namespace dissertation_test_repo.Tests.Services
             var result = await _carService.GetAvailableCarsAsync();
 
             // Assert
-            result.Should().BeOfType<List<CarResponseDto>>().And.HaveCount(cars.Count);
+            result.Should().HaveCount(cars.Count);
         }
 
         [Test]

@@ -113,6 +113,37 @@ namespace dissertation_test_repo.Services
             return cars.Select(MapToResponseDto);
         }
 
+        public async Task<IEnumerable<CarResponseDto>> GetAvailableCarsAsync()
+        {
+            var cars = await _carRepository.GetAvailableCarsAsync();
+            return cars.Select(MapToResponseDto);
+        }
+
+        public async Task<CarResponseDto?> MarkAsUnavailableAsync(int id)
+        {
+            var car = await _carRepository.GetByIdAsync(id);
+            if (car == null)
+            {
+                return null;
+            }
+
+            car.IsAvailable = false;
+            var updatedCar = await _carRepository.UpdateAsync(id, car);
+
+            if (updatedCar != null)
+            {
+                _logger.LogInformation("Marked car as unavailable with ID: {CarId}", id);
+            }
+
+            return updatedCar != null ? MapToResponseDto(updatedCar) : null;
+        }
+
+        public async Task<double> GetAveragePriceAsync()
+        {
+            var cars = await _carRepository.GetAllAsync();
+            return cars.Any() ? cars.Average(c => (double)c.Price) : 0;
+        }
+
         private static CarResponseDto MapToResponseDto(Car car)
         {
             return new CarResponseDto
